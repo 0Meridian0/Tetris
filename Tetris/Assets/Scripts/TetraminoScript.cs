@@ -20,19 +20,25 @@ public class TetraminoScript : MonoBehaviour
     void Update()
     {
         PersonControl();
-
+        float fallenTetra;
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
-            fallTime = fallTime / 10;
+            fallenTetra = fallTime / 10;
+        }
+        else
+        {
+            fallenTetra = fallTime;
         }
 
-        if (Time.time - prevTime > fallTime)
+        if (Time.time - prevTime > fallenTetra)
         {
             transform.position += new Vector3(0, -1, 0);
 
             if (!CanTetraMove())
             {
                 transform.position -= new Vector3(0, -1, 0);
+                this.enabled = false;
+                FindObjectOfType<SpawnerScript>().SpawnNewTetramino();
             }
             prevTime = Time.time;
         }

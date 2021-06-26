@@ -206,6 +206,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1488254146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1488254148}
+  - component: {fileID: 1488254147}
+  m_Layer: 0
+  m_Name: SpawnOfTetraminos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1488254147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488254146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee9fa7d3b7b84a4caac6e8ef4a5a99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MassTetraminoes:
+  - {fileID: 439622610437263333, guid: a6b0dcdb22cbabf44a1d6ae22d990b5c, type: 3}
+  - {fileID: 4547576016908521132, guid: e09b5b22ee455d2498adf37374dd0311, type: 3}
+  - {fileID: 8271132170620449431, guid: def99dea9fbb21843b19b7b001be23dd, type: 3}
+  - {fileID: 6457011760236483773, guid: eebb72f62053ab6409dae8629cf080b7, type: 3}
+  - {fileID: 9003147634038130212, guid: a8bb4433f0eb7ea4a85ec3db21f2ecbc, type: 3}
+  - {fileID: 5577746805875221468, guid: f1612f46a92fd2243a4f4727e030bea9, type: 3}
+  - {fileID: 7516225011858434820, guid: 025cd9319e026204cb7f04d7b81111fe, type: 3}
+--- !u!4 &1488254148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488254146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1813564132
 PrefabInstance:
   m_ObjectHideFlags: 0
