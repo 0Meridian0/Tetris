@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetraCenterRotation: {x: 0.5, y: 0.5, z: 0}
   fallTime: 0.8
+  panel: {fileID: 5522103938681686013, guid: b3f7299765a621145b5b1791d8c01315, type: 3}
 --- !u!1 &7537264925067878944
 GameObject:
   m_ObjectHideFlags: 0

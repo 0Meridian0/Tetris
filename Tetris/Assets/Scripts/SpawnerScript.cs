@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
-{
-    public GameObject[] MassTetraminoes;
+{       
+    [SerializeField]
+    GameObject[] massTetraminoes;
+    
+    [SerializeField]
+    GameObject nextTetramino;
+    [SerializeField]
+    GameObject curTetramino;
+    
+    bool firstsTime = true;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +22,26 @@ public class SpawnerScript : MonoBehaviour
 
     public void SpawnNewTetramino()
     {
-        Instantiate(MassTetraminoes[Random.Range(0, MassTetraminoes.Length)], transform.position, Quaternion.identity);
+        if(firstsTime)
+        {
+            curTetramino = Instantiate(massTetraminoes[Random.Range(0, massTetraminoes.Length)], transform.position, Quaternion.identity);
+            firstsTime = false;
+            nextTetramino = Instantiate(massTetraminoes[Random.Range(0, massTetraminoes.Length)], nextTetramino.transform.position, Quaternion.identity);
+            nextTetramino.GetComponent<TetraminoScript>().enabled = false;
+        }
+        else
+        {
+            curTetramino = Instantiate(nextTetramino, transform.position, Quaternion.identity);
+            curTetramino.GetComponent<TetraminoScript>().enabled = true;
+            Destroy(nextTetramino);
+            nextTetramino = Instantiate(massTetraminoes[Random.Range(0, massTetraminoes.Length)], nextTetramino.transform.position, Quaternion.identity);
+            nextTetramino.GetComponent<TetraminoScript>().enabled = false;
+        }        
+    }
+    public void Reset()
+    {
+        firstsTime = true;
+        Destroy(nextTetramino);
+        Destroy(curTetramino);
     }
 }
