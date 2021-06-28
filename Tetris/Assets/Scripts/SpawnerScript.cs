@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
-{       
+{
     [SerializeField]
-    GameObject[] massTetraminoes;
-    
+    GameObject[] massTetraminoes; // Массив всех тетрамино
+
     [SerializeField]
-    GameObject nextTetramino;
+    GameObject nextTetramino; // Тетрамино, которое будет использоваться следующим
+
     [SerializeField]
-    GameObject curTetramino;
-    
+    GameObject curTetramino; // Тетрамино, выходящее на игровое поле
     bool firstsTime = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         SpawnNewTetramino();
     }
 
+    // Спавн тетрамино на игровое поле
     public void SpawnNewTetramino()
     {
-        if(firstsTime)
+        if (firstsTime)
         {
             curTetramino = Instantiate(massTetraminoes[Random.Range(0, massTetraminoes.Length)], transform.position, Quaternion.identity);
             firstsTime = false;
@@ -36,8 +36,10 @@ public class SpawnerScript : MonoBehaviour
             Destroy(nextTetramino);
             nextTetramino = Instantiate(massTetraminoes[Random.Range(0, massTetraminoes.Length)], nextTetramino.transform.position, Quaternion.identity);
             nextTetramino.GetComponent<TetraminoScript>().enabled = false;
-        }        
+        }
     }
+
+    //Метод перезапуска спавна
     public void Reset()
     {
         firstsTime = true;

@@ -7,6 +7,7 @@ public class TetraminoScript : MonoBehaviour
 {
     [SerializeField]
     Vector3 tetraCenterRotation;
+
     [SerializeField]
     float fallTime = 0.8f;
     private float prevTime;
@@ -17,19 +18,21 @@ public class TetraminoScript : MonoBehaviour
     private static int speed = 1;
     private static int score = 0;
 
+    // Метод вывода информации для пользователя
     void Start()
     {
         FindObjectOfType<InfoForPerson>().UpdateTextScore(score);
         FindObjectOfType<InfoForPerson>().UpdateTextSpeed(speed);
     }
 
-    // Update is called once per frame
+    // Основная логика игры(движение фигур, остановка при достижении "земли",
+    // разрушение линии, сдвиг вышестоящих фигур вниз, спавн новой фигуры)
     void Update()
     {
         PersonControl();
         float fallenTetra;
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-            fallenTetra = fallTime / (10*speed);
+            fallenTetra = fallTime / (10 * speed);
         else
             fallenTetra = fallTime / speed;
 
@@ -41,7 +44,7 @@ public class TetraminoScript : MonoBehaviour
             {
                 transform.position -= new Vector3(0, -1, 0);
                 AddToTable();
-                if(!stopGame)
+                if (!stopGame)
                 {
                     CheckingFilledLine();
                     this.enabled = false;
@@ -57,6 +60,7 @@ public class TetraminoScript : MonoBehaviour
         }
     }
 
+    // Метод спуска вышестоящих фигур после разрушения линии
     void PullDownLine(int i)
     {
         for (int h = i; h < height; h++)
@@ -73,16 +77,18 @@ public class TetraminoScript : MonoBehaviour
         }
     }
 
+    // Метод разрушения заполненной линии
     void DeleteLine(int i)
     {
         for (int j = 0; j < width; j++)
         {
-            if(table[j,i] != null)
+            if (table[j, i] != null)
                 Destroy(table[j, i].gameObject);
             table[j, i] = null;
         }
     }
 
+    // Метод поиска заполненых линий на игровом поле
     bool LineFilled(int i)
     {
         for (int j = 0; j < width; j++)
@@ -92,6 +98,8 @@ public class TetraminoScript : MonoBehaviour
         }
         return true;
     }
+
+    // Метод разрушения заполненной линии
     void CheckingFilledLine()
     {
         int line = 0;
@@ -104,41 +112,44 @@ public class TetraminoScript : MonoBehaviour
                 line++;
             }
         }
-        if(line != 0)
+        if (line != 0)
         {
             FindObjectOfType<InfoForPerson>().UpdateTextLines(line);
             UpdateScore(line);
             CheckScoreSpeed();
         }
-            
+
     }
 
+    // Метод повышения скорости игры каждые 1000 очков
     void CheckScoreSpeed()
     {
-        if(score % 1000 == 0 && speed<10)
+        if (score % 1000 == 0 && speed < 10)
             speed++;
     }
 
+    // Метод пересчета игровых очков в зависимости от разрушенных линий
     void UpdateScore(int line)
     {
         switch (line)
         {
             case 1:
-                score+=100;
+                score += 100;
                 break;
             case 2:
-                score+=300;
+                score += 300;
                 break;
             case 3:
-                score+=700;
+                score += 700;
                 break;
             case 4:
-                score+=1500;
+                score += 1500;
                 break;
         }
         FindObjectOfType<InfoForPerson>().UpdateTextScore(score);
     }
 
+    // Метод добавления тетрамино в общую таблицу
     void AddToTable()
     {
         foreach (Transform child in transform)
@@ -146,16 +157,18 @@ public class TetraminoScript : MonoBehaviour
             int X = Mathf.RoundToInt(child.transform.position.x);
             int Y = Mathf.RoundToInt(child.transform.position.y);
 
-            if(table[X,Y] != null)
+            if (table[X, Y] != null)
             {
-                stopGame =true;
+                stopGame = true;
             }
             else
             {
-                table[X, Y] = child;   
+                table[X, Y] = child;
             }
         }
     }
+
+    // Метод управления тетрамино пользователем
     void PersonControl()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -176,7 +189,7 @@ public class TetraminoScript : MonoBehaviour
             if (!CanTetraMove())
                 transform.RotateAround(transform.TransformPoint(tetraCenterRotation), new Vector3(0, 0, 1), -90);
         }
-        if (Input.GetKeyDown(KeyCode.KeypadPlus) && speed < 10) 
+        if (Input.GetKeyDown(KeyCode.KeypadPlus) && speed < 10)
         {
             speed++;
             FindObjectOfType<InfoForPerson>().UpdateTextSpeed(speed);
@@ -188,6 +201,7 @@ public class TetraminoScript : MonoBehaviour
         }
     }
 
+    // Метод проверки возможности движения тетрамино
     bool CanTetraMove()
     {
         foreach (Transform child in transform)
@@ -204,10 +218,11 @@ public class TetraminoScript : MonoBehaviour
         return true;
     }
 
+    // Метод перезапуска игры
     public void RestartGame()
-    {   
+    {
         System.Threading.Thread.Sleep(1000);
-        for (int i=0; i < height; i++)
+        for (int i = 0; i < height; i++)
         {
             DeleteLine(i);
         }
