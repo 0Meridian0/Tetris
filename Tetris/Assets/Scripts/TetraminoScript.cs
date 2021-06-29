@@ -183,7 +183,7 @@ public class TetraminoScript : MonoBehaviour
             if (!CanTetraMove())
                 transform.position -= new Vector3(1, 0, 0);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             transform.RotateAround(transform.TransformPoint(tetraCenterRotation), new Vector3(0, 0, 1), 90);
             if (!CanTetraMove())
@@ -198,6 +198,10 @@ public class TetraminoScript : MonoBehaviour
         {
             speed--;
             FindObjectOfType<InfoForPerson>().UpdateTextSpeed(speed);
+        }
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
         }
     }
 
